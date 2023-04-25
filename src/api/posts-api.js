@@ -11,7 +11,10 @@ export const APIPosts = {
   getPost: (id) => {
     return instance.get(`/posts/${id}`);
   },
-  addPost: (data) => {
-    return instance.post("/posts", data);
+  addPost: (data, headers) => {
+    return instance.post("/posts", data, { headers });
+  },
+  deletePost: (id, headers) => {
+    return instance.delete(`/posts/${id}`, { headers });
   },
 };

@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { APIPosts } from "../../api/api";
+import { APIPosts } from "../../api/posts-api";
 
 const initialState = [];
 
 export const slice = createSlice({
   name: "posts",
-  initialState: [],
+  initialState: initialState,
   reducers: {
     setPostsAC: (state, action) => {
       return action.payload.posts;
@@ -17,11 +17,10 @@ export const { setPostsAC } = slice.actions;
 export const postsReducer = slice.reducer;
 
 export const setPostsTC = () => {
-  return async (Dispatch) => {
+  return async (dispatch) => {
     try {
-      debugger;
       const res = await APIPosts.getPosts();
-      Dispatch(setPostsAC({ posts: res.data }));
+      dispatch(setPostsAC({ posts: res.data }));
     } catch (e) {
       console.log(e);
     }

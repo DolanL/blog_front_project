@@ -1,37 +1,47 @@
-import React from 'react';
-import TextField from '@mui/material/TextField';
-import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
-import SimpleMDE from 'react-simplemde-editor';
+import React from "react";
+import TextField from "@mui/material/TextField";
+import Paper from "@mui/material/Paper";
+import Button from "@mui/material/Button";
+import SimpleMDE from "react-simplemde-editor";
 
-import 'easymde/dist/easymde.min.css';
-import styles from './AddPost.module.scss';
+import "easymde/dist/easymde.min.css";
+import styles from "./AddPost.module.scss";
 
 export const AddPost = () => {
-  const imageUrl = '';
-  const [value, setValue] = React.useState('');
+  const imageUrl = "";
 
-  const handleChangeFile = () => {};
+  const [tags, setTags] = React.useState("");
+  const [textValue, setTextValue] = React.useState("");
+  const [headerValue, setHeaderValue] = React.useState("");
+
+  const handleChangeFile = (event) => {};
+
+  const handleChangeHeaderValue = (e) => {
+    setHeaderValue(e.currentTarget.value);
+  };
+
+  const handleChangeTextValue = (value) => {
+    setTextValue(value);
+  };
+
+  const handleChangeTagsValue = () => {};
 
   const onClickRemoveImage = () => {};
-
-  const onChange = React.useCallback((value) => {
-    setValue(value);
-  }, []);
 
   const options = React.useMemo(
     () => ({
       spellChecker: false,
-      maxHeight: '400px',
+      maxHeight: "400px",
       autofocus: true,
-      placeholder: 'Введите текст...',
+      placeholder: "Введите текст...",
       status: false,
       autosave: {
         enabled: true,
         delay: 1000,
+        uniqueId: "my-unique-id",
       },
     }),
-    [],
+    []
   );
 
   return (
@@ -46,7 +56,11 @@ export const AddPost = () => {
         </Button>
       )}
       {imageUrl && (
-        <img className={styles.image} src={`http://localhost:4444${imageUrl}`} alt="Uploaded" />
+        <img
+          className={styles.image}
+          src={`http://localhost:4444${imageUrl}`}
+          alt="Uploaded"
+        />
       )}
       <br />
       <br />
@@ -55,9 +69,23 @@ export const AddPost = () => {
         variant="standard"
         placeholder="Заголовок статьи..."
         fullWidth
+        onChange={handleChangeHeaderValue}
+        value={headerValue}
       />
-      <TextField classes={{ root: styles.tags }} variant="standard" placeholder="Тэги" fullWidth />
-      <SimpleMDE className={styles.editor} value={value} onChange={onChange} options={options} />
+      <TextField
+        classes={{ root: styles.tags }}
+        variant="standard"
+        placeholder="Тэги"
+        fullWidth
+        onChange={handleChangeTagsValue}
+        value={tags}
+      />
+      <SimpleMDE
+        className={styles.editor}
+        value={textValue}
+        onChange={handleChangeTextValue}
+        options={options}
+      />
       <div className={styles.buttons}>
         <Button size="large" variant="contained">
           Опубликовать

@@ -1,17 +1,17 @@
 import Container from "@mui/material/Container";
 
 import { Header } from "./components";
-import { Home, FullPost, Registration, AddPost, Login } from "./pages";
+import { AddPost, FullPost, Home, Login, Registration } from "./pages";
 import { Route, Routes } from "react-router-dom";
-import { useEffect } from "@types/react";
-import { setPostsTC } from "./store/posts-reducer/posts-reducer";
-import { useAppDispatch } from "./store/store";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { meTC } from "./store/auth-reducer/auth-reducer";
 
 function App() {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setPostsTC);
+    dispatch(meTC());
   }, []);
 
   return (
@@ -21,7 +21,7 @@ function App() {
         <Routes>
           <Route path={"/"} element={<Home />} />
           <Route path={"/posts/:id"} element={<FullPost />} />
-          <Route path={"/add-post"} element={<AddPost />} />
+          <Route path={"/posts/create"} element={<AddPost />} />
           <Route path={"/login"} element={<Login />} />
           <Route path={"/register"} element={<Registration />} />
           {/*<FullPost />*/}
